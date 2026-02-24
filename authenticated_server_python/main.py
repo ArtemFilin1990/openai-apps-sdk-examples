@@ -73,7 +73,7 @@ PAST_ORDERS_WIDGET = PizzazWidget(
 )
 
 
-MIME_TYPE = "text/html+skybridge"
+MIME_TYPE = "text/html;profile=mcp-app"
 
 SEARCH_TOOL_NAME = SEARCH_WIDGET.identifier
 PAST_ORDERS_TOOL_NAME = "see_past_orders"
@@ -335,7 +335,7 @@ def _tool_meta(
     security_schemes: List[Dict[str, Any]] | None = None,
 ) -> Dict[str, Any]:
     meta = {
-        "openai/outputTemplate": widget.template_uri,
+        "ui": {"resourceUri": widget.template_uri},
         "openai/toolInvocation/invoking": widget.invoking,
         "openai/toolInvocation/invoked": widget.invoked,
         "openai/widgetAccessible": True,

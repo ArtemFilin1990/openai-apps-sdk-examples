@@ -48,7 +48,7 @@ const ROOT_DIR = path.resolve(__dirname, "..", "..");
 const ASSETS_DIR = path.resolve(ROOT_DIR, "assets");
 
 const TEMPLATE_URI = "ui://widget/kitchen-sink-lite.html";
-const MIME_TYPE = "text/html+skybridge";
+const MIME_TYPE = "text/html;profile=mcp-app";
 
 function readWidgetHtml(): string {
   if (!fs.existsSync(ASSETS_DIR)) {
@@ -87,7 +87,7 @@ function readWidgetHtml(): string {
 
 function toolDescriptorMeta() {
   return {
-    "openai/outputTemplate": TEMPLATE_URI,
+    ui: { resourceUri: TEMPLATE_URI },
     "openai/toolInvocation/invoking": "Preparing the kitchen sink widget",
     "openai/toolInvocation/invoked": "Widget rendered",
     "openai/widgetAccessible": true,

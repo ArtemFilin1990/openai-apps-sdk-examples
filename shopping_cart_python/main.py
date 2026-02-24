@@ -17,7 +17,7 @@ WIDGET_TEMPLATE_URI = "ui://widget/shopping-cart.html"
 WIDGET_TITLE = "Start shopping cart"
 WIDGET_INVOKING = "Preparing shopping cart"
 WIDGET_INVOKED = "Shopping cart ready"
-MIME_TYPE = "text/html+skybridge"
+MIME_TYPE = "text/html;profile=mcp-app"
 ASSETS_DIR = Path(__file__).resolve().parent.parent / "assets"
 
 
@@ -113,7 +113,7 @@ def _get_or_create_cart(cart_id: str | None) -> str:
 
 def _widget_meta() -> Dict[str, Any]:
     return {
-        "openai/outputTemplate": WIDGET_TEMPLATE_URI,
+        "ui": {"resourceUri": WIDGET_TEMPLATE_URI},
         "openai/toolInvocation/invoking": WIDGET_INVOKING,
         "openai/toolInvocation/invoked": WIDGET_INVOKED,
         "openai/widgetAccessible": True,
