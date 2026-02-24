@@ -101,7 +101,7 @@ widgets: List[PizzazWidget] = [
 ]
 
 
-MIME_TYPE = "text/html+skybridge"
+MIME_TYPE = "text/html;profile=mcp-app"
 
 
 WIDGETS_BY_ID: Dict[str, PizzazWidget] = {
@@ -168,7 +168,7 @@ def _resource_description(widget: PizzazWidget) -> str:
 
 def _tool_meta(widget: PizzazWidget) -> Dict[str, Any]:
     return {
-        "openai/outputTemplate": widget.template_uri,
+        "ui": {"resourceUri": widget.template_uri},
         "openai/toolInvocation/invoking": widget.invoking,
         "openai/toolInvocation/invoked": widget.invoked,
         "openai/widgetAccessible": True,

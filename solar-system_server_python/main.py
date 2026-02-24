@@ -13,7 +13,7 @@ from mcp.server.fastmcp import FastMCP
 from mcp.server.transport_security import TransportSecuritySettings
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
-MIME_TYPE = "text/html+skybridge"
+MIME_TYPE = "text/html;profile=mcp-app"
 PLANETS = [
     "Mercury",
     "Venus",
@@ -140,7 +140,7 @@ def _resource_description(widget: SolarWidget) -> str:
 
 def _tool_meta(widget: SolarWidget) -> Dict[str, Any]:
     return {
-        "openai/outputTemplate": widget.template_uri,
+        "ui": {"resourceUri": widget.template_uri},
         "openai/toolInvocation/invoking": widget.invoking,
         "openai/toolInvocation/invoked": widget.invoked,
         "openai/widgetAccessible": True,
@@ -289,7 +289,7 @@ async def _call_tool_request(req: types.CallToolRequest) -> types.ServerResult:
     widget_resource = _embedded_widget_resource(WIDGET)
     meta: Dict[str, Any] = {
         "openai.com/widget": widget_resource.model_dump(mode="json"),
-        "openai/outputTemplate": WIDGET.template_uri,
+        "ui": {"resourceUri": WIDGET.template_uri},
         "openai/toolInvocation/invoking": WIDGET.invoking,
         "openai/toolInvocation/invoked": WIDGET.invoked,
         "openai/widgetAccessible": True,

@@ -39,6 +39,7 @@ type PizzazWidget = {
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, "..", "..");
 const ASSETS_DIR = path.resolve(ROOT_DIR, "assets");
+const MIME_TYPE = "text/html;profile=mcp-app";
 
 function readWidgetHtml(componentName: string): string {
   if (!fs.existsSync(ASSETS_DIR)) {
@@ -76,7 +77,7 @@ function readWidgetHtml(componentName: string): string {
 
 function widgetDescriptorMeta(widget: PizzazWidget) {
   return {
-    "openai/outputTemplate": widget.templateUri,
+    ui: { resourceUri: widget.templateUri },
     "openai/toolInvocation/invoking": widget.invoking,
     "openai/toolInvocation/invoked": widget.invoked,
     "openai/widgetAccessible": true,
@@ -180,7 +181,7 @@ const resources: Resource[] = widgets.map((widget) => ({
   uri: widget.templateUri,
   name: widget.title,
   description: `${widget.title} widget markup`,
-  mimeType: "text/html+skybridge",
+  mimeType: MIME_TYPE,
   _meta: widgetDescriptorMeta(widget),
 }));
 
@@ -188,7 +189,7 @@ const resourceTemplates: ResourceTemplate[] = widgets.map((widget) => ({
   uriTemplate: widget.templateUri,
   name: widget.title,
   description: `${widget.title} widget markup`,
-  mimeType: "text/html+skybridge",
+  mimeType: MIME_TYPE,
   _meta: widgetDescriptorMeta(widget),
 }));
 
@@ -226,7 +227,7 @@ function createPizzazServer(): Server {
         contents: [
           {
             uri: widget.templateUri,
-            mimeType: "text/html+skybridge",
+            mimeType: MIME_TYPE,
             text: widget.html,
             _meta: widgetDescriptorMeta(widget),
           },

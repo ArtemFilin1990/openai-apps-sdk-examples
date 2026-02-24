@@ -25,7 +25,7 @@ from pydantic import BaseModel, Field
 
 ASSETS_DIR = Path(__file__).resolve().parent.parent / "assets"
 TEMPLATE_URI = "ui://widget/kitchen-sink-lite.html"
-MIME_TYPE = "text/html+skybridge"
+MIME_TYPE = "text/html;profile=mcp-app"
 
 
 class WidgetPayload(BaseModel):
@@ -60,7 +60,7 @@ def load_widget_html() -> str:
 
 def tool_meta(invocation: str):
     return {
-        "openai/outputTemplate": TEMPLATE_URI,
+        "ui": {"resourceUri": TEMPLATE_URI},
         "openai/toolInvocation/invoking": "Preparing the kitchen sink widget",
         "openai/toolInvocation/invoked": "Widget rendered",
         "openai/widgetAccessible": True,
